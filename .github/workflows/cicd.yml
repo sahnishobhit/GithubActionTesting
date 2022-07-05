@@ -33,6 +33,8 @@ jobs:
       - name: Run a multi-line script
         run: |
           echo Add other actions to build by Shobhit Sahni!
+      - name: create file
+        run: echo "abcd" >> output.log
       - name: Upload output file
         uses: actions/upload-artifact@v3
         with:
