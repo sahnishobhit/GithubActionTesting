@@ -4,7 +4,6 @@ on:
     branches: [ "shobhit", "main", "shobhit" ]
   pull_request:
     branches: [ "shobhit" ]
-
   workflow_dispatch:
 #     inputs:
 #       logLevel:
@@ -26,7 +25,7 @@ on:
 #         required: true 
 
 env:
-  MY_ENV_VAR: "My environment variable"
+  MY_ENV_VAR: My environment variable
 
 jobs:
   Job1:
@@ -35,7 +34,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Run a multi-line script
         run: |
-          echo Add other actions to build by Shobhit Sahni - ${{ MY_ENV_VAR }}!
+          echo Add other actions to build by Shobhit Sahni - $MY_ENV_VAR!
       - name: create file
         run: echo "abcd" >> output.log
       - name: Upload output file
