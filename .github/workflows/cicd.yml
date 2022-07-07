@@ -35,6 +35,7 @@ jobs:
       - name: Run a multi-line script
         run: |
           echo Add other actions to build by Shobhit Sahni - $GITHUB_RUN_NUMBER!
+          echo ${{ secrets.REPO_SECRET }}
       - name: create file
         run: echo "abcd" >> output.log
       - name: Upload output file
