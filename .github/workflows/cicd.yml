@@ -30,12 +30,18 @@ env:
 jobs:
   Job1:
     runs-on: ubuntu-latest
+    env:
+      MY_SECRET: ${{ secrets.REPO_SECRET }}
     steps:
       - uses: actions/checkout@v3
       - name: Run a multi-line script
         run: |
           echo Add other actions to build by Shobhit Sahni - $GITHUB_RUN_NUMBER!
-          echo ${{ secrets.REPO_SECRET }}
+          if [[ $MY_SECRET == "repo" ]]; then
+            echo Secret found
+          else
+            echo Secret not found
+          fi
       - name: create file
         run: echo "abcd" >> output.log
       - name: Upload output file
