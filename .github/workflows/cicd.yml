@@ -37,7 +37,7 @@ jobs:
       - name: Run a multi-line script
         run: |
           echo Add other actions to build by Shobhit Sahni - $GITHUB_RUN_NUMBER!
-          if [[ $MY_SECRET == "repo" ]]; then
+          if [[ $MY_SECRET == "repoa" ]]; then
             echo Secret found
           else
             echo Secret not found
