@@ -1,0 +1,97 @@
+parameters:
+  - name: environment
+    default: Development
+    values:
+      - Development
+      - UAT
+      - PROD
+      - ST
+
+trigger:
+- none
+
+pool:
+  name: ShobhitPool
+  demands:
+   - agent.name -equals ShobhitPool_Agent2
+# pool:
+#  vmImage: ShobhitPool_Agent2
+
+variables:
+  - group: ReplaceVariable
+  - name: tag
+    value: '$(Build.BuildId)'
+  - name: trivyVersion
+    value: 0.9.1
+  
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    # pool:
+    #   vmImage: ubuntu-latest
+    steps:
+    - task: replacetokens@5
+      inputs:
+        targetFiles: '**/README.md'
+        encoding: 'auto'
+        tokenPattern: 'custom'
+        tokenPrefix: '['
+        tokenSuffix: ']'
+        writeBOM: false
+        actionOnMissing: 'warn'
+        keepToken: false
+        actionOnNoFiles: 'continue'
+        enableTransforms: false
+        enableRecursion: false
+        useLegacyPattern: false
+        enableTelemetry: true
+    
+    # - task: Bash@3
+    #   inputs:
+    #     targetType: 'inline'
+    #     script: |
+    #       git init
+    #       git add README.md 
+    #       git commit -m "changing readme"
+    #       git remote add origin https://charusahni2@dev.azure.com/charusahni2/docker%20test/_git/docker%20test
+    #       yxvvnctmzvu2gxnianr5x43ym7tlqxqcv2zzonksganywpqh52la
+    #       git push
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'DockerHubServiceConnection_a1ozone'
+        command: 'login'
+    - task: PowerShell@2
+      inputs:
+        targetType: inline
+        script: 'docker run -d --name Cont1234 a1ozone/repo_1:shobhit123'
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'DockerHubServiceConnection_a1ozone'
+        repository: 'a1ozone/repo_1'
+        command: 'buildAndPush'
+        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        tags: '$(Build.BuildId)'
+
+    - script: |
+        sudo apt-get install rpm
+        wget https://github.com/aquasecurity/trivy/releases/download/v$(trivyVersion)/trivy_$(trivyVersion)_Linux-64bit.deb
+        sudo dpkg -i trivy_$(trivyVersion)_Linux-64bit.deb
+        trivy -v
+      displayName: 'Download and install Trivy'
+    - task: CmdLine@2
+      inputs:
+        script: |
+          trivy image --exit-code 1 --severity LOW,MEDIUM a1ozone/repo_1:shobhit123
+          trivy image --exit-code 0 --severity HIGH,CRITICAL a1ozone/repo_1:shobhit123
+      
+    # - task: Docker@2
+    #   displayName: Build an image
+    #   inputs:
+    #     command: build
+    #     dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+    #     tags: |
+    #       $(tag)
