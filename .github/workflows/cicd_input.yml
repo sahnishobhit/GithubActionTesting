@@ -42,6 +42,8 @@ jobs:
           else
             echo Secret not found
           fi
+      - name: inputs
+        run: echo ${{inputs.logLevel}}
       - name: create file
         run: echo "abcd" >> output.log
       - name: Upload output file
