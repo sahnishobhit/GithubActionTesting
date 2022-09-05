@@ -1,65 +1,83 @@
-name: CI
-on:
-  push:
-    branches: [ "shobhit", "main", "shobhit" ]
-  pull_request:
-    branches: [ "shobhit" ]
+on: 
   workflow_dispatch:
     inputs:
       logLevel:
         description: 'Log level'     
         required: true
-        default: 'warning' 
-        type: choice
-        options:
-        - info
-        - warning
-        - debug 
+        default: 'warning'
       tags:
         description: 'Test scenario tags'
-        required: false 
-        type: boolean
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: true 
-
-env:
-  MY_ENV_VAR: My environment variable
 
 jobs:
-  Job1:
-    runs-on: ubuntu-latest
-    env:
-      MY_SECRET: ${{ secrets.REPO_SECRET }}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build by Shobhit Sahni - $GITHUB_RUN_NUMBER!
-          if [[ $MY_SECRET == "repoa" ]]; then
-            echo Secret found
-          else
-            echo Secret not found
-          fi
-      - name: inputs
-        run: echo ${{github.event.inputs.logLevel}}
-      - name: create file
-        run: echo "abcd" >> output.log
-      - name: Upload output file
-        uses: actions/upload-artifact@v3
-        with:
-          name: output-log-file
-          path: output.log
-  Job2:
+  printInputs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Run a MULTI-line script
-        run: |
-          echo Hello, world job2!
-          echo ${{ secrets.REPO_SECRET }}
-      - name: Download a single artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: output-log-file
+    - run: |
+        echo "Log level: ${{ github.event.inputs.logLevel }}"
+        echo "Tags: ${{ github.event.inputs.tags }}" 
+
+# name: CI
+# on:
+#   push:
+#     branches: [ "shobhit", "main", "shobhit" ]
+#   pull_request:
+#     branches: [ "shobhit" ]
+#   workflow_dispatch:
+#     inputs:
+#       logLevel:
+#         description: 'Log level'     
+#         required: true
+#         default: 'warning' 
+#         type: choice
+#         options:
+#         - info
+#         - warning
+#         - debug 
+#       tags:
+#         description: 'Test scenario tags'
+#         required: false 
+#         type: boolean
+#       environment:
+#         description: 'Environment to run tests against'
+#         type: environment
+#         required: true 
+
+# env:
+#   MY_ENV_VAR: My environment variable
+
+# jobs:
+#   Job1:
+#     runs-on: ubuntu-latest
+#     env:
+#       MY_SECRET: ${{ secrets.REPO_SECRET }}
+#     steps:
+#       - uses: actions/checkout@v3
+#       - name: Run a multi-line script
+#         run: |
+#           echo Add other actions to build by Shobhit Sahni - $GITHUB_RUN_NUMBER!
+#           if [[ $MY_SECRET == "repoa" ]]; then
+#             echo Secret found
+#           else
+#             echo Secret not found
+#           fi
+#       - name: inputs
+#         run: echo ${{github.event.inputs.logLevel}}
+#       - name: create file
+#         run: echo "abcd" >> output.log
+#       - name: Upload output file
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: output-log-file
+#           path: output.log
+#   Job2:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#       - name: Run a MULTI-line script
+#         run: |
+#           echo Hello, world job2!
+#           echo ${{ secrets.REPO_SECRET }}
+#       - name: Download a single artifact
+#         uses: actions/download-artifact@v3
+#         with:
+#           name: output-log-file
