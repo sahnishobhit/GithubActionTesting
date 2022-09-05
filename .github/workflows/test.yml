@@ -2,7 +2,7 @@ name: Test
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches: [ "main" , "shobhit" ]
   pull_request:
     branches: [ "main" ]
 
