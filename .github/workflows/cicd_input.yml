@@ -43,7 +43,7 @@ jobs:
             echo Secret not found
           fi
       - name: inputs
-        run: echo ${{inputs.logLevel}}
+        run: echo ${{github.event.inputs.logLevel}}
       - name: create file
         run: echo "abcd" >> output.log
       - name: Upload output file
