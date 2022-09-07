@@ -1,4 +1,4 @@
-name: Test
+name: envTesting Workflow
 on:
   push:
     branches: [ "main" , "shobhit" ]
@@ -19,7 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Run a one-line script
+      - name: Run-1
         run: echo Hello, world!
+      - name: Run-2
         run: echo ${GITHUB_REF##*/}
   
