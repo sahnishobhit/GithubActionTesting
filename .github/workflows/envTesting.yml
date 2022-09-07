@@ -16,7 +16,9 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   Job1:
+    if: ${GITHUB_REF##*/} == "main"
     runs-on: ubuntu-latest
+    environment: Test
     steps:
       - uses: actions/checkout@v3
       - name: Run-1
@@ -24,3 +26,13 @@ jobs:
       - name: Run-2
         run: echo ${GITHUB_REF##*/}
   
+  Job2:
+    if: ${GITHUB_REF##*/} == "shobhit"
+    runs-on: ubuntu-latest
+    environment: Dev
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run-3
+        run: echo Hello, world!
+      - name: Run-4
+        run: echo ${GITHUB_REF##*/}
