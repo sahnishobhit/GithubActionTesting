@@ -27,7 +27,7 @@ jobs:
         run: echo ${GITHUB_REF##*/}
   
   Job2:
-    if: ${GITHUB_REF##*/} == 'shobhit'
+    if: ${{GITHUB_REF##*/}} == 'shobhit'
     runs-on: ubuntu-latest
     environment: Dev
     steps:
