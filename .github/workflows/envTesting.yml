@@ -16,7 +16,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   Job1:
-    if: ${{GITHUB_REF##*/}} == 'main'
+#     if: ${{GITHUB_REF##*/}} == 'main'
     runs-on: ubuntu-latest
     environment: Test
     steps:
