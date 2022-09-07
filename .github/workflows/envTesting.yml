@@ -24,17 +24,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Run-1
-        run: echo Hello, world!
+        run: echo Hello, world - Test!
       - name: Run-2
         run: echo ${GITHUB_REF##*/}
   
-#   Job2:
-#     if: ${{GITHUB_REF##*/}} == 'shobhit'
-#     runs-on: ubuntu-latest
-#     environment: Dev
-#     steps:
-#       - uses: actions/checkout@v3
-#       - name: Run-3
-#         run: echo Hello, world!
-#       - name: Run-4
-#         run: echo ${GITHUB_REF##*/}
+  Job2:
+    if: github.ref == 'refs/heads/shobhit'
+    runs-on: ubuntu-latest
+    environment: Dev
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run-3
+        run: echo Hello, world - Dev!
+      - name: Run-4
+        run: echo ${GITHUB_REF##*/}
