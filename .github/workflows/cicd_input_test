@@ -1,9 +1,11 @@
 name: cicd_input_test
 on:
   push:
-    branches: [ main ]
+    branches: 
+      - main
   pull_request:
-    branches: [ main ]
+    branches: 
+      - main
   workflow_dispatch:
     inputs:
       logLevel:
