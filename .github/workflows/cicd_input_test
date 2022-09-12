@@ -1,4 +1,4 @@
-name: cicd_inputs
+name: cicd_input_test
 on:
   push:
     branches: [ "shobhit", "main", "shobhit" ]
