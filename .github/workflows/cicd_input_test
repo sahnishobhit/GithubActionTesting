@@ -1,7 +1,7 @@
 name: cicd_input_test
 on:
   push:
-    branches: [ "shobhit", "main", "shobhit" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
