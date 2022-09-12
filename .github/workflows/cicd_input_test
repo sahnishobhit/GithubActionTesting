@@ -3,7 +3,7 @@ on:
   push:
     branches: [ "shobhit", "main", "shobhit" ]
   pull_request:
-    branches: [ "shobhit" ]
+    branches: [ "main" ]
   workflow_dispatch:
     inputs:
       logLevel:
